@@ -1,0 +1,5 @@
+-> Debug'ý FreeCourse.Services.Catalog olarak ayarlamak onu IIS üzerinden deðilde Open Source olan Kestrel sunucusu üzerinden ayaða kaldýrmamýzý saðlýyor.		,
+
+-> LaunchSettings.json dosyasý içerisinde:
+
+	launchBrowser : Otomatik browser üzerinden çalýþsýn, bunu false yapma sebebi her ayaða kaldýrmada her servis için ayrý tab açýlmasýný önlemek.
