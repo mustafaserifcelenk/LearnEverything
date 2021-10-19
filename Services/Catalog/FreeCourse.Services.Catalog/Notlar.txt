@@ -1,0 +1,9 @@
+-> Debug'ý FreeCourse.Services.Catalog olarak ayarlamak onu IIS üzerinden deðilde Open Source olan Kestrel sunucusu üzerinden ayaða kaldýrmamýzý saðlýyor.		,
+
+-> LaunchSettings.json dosyasý içerisinde:
+
+	launchBrowser : Otomatik browser üzerinden çalýþsýn, bunu false yapma sebebi her ayaða kaldýrmada her servis için ayrý tab açýlmasýný önlemek.
+
+-> AppSettings.json : Burada connection string olarak default mongo db'nin stringini yazýyoruz ancak dockerize edildiðinde sunucu ortamý baz alýndýðýndan orada env türünden bir deðiþkene ihtiyaç duyacaðýz. Bu deðiþken docker compose'daki servisin adýný taþýyacak.
+
+-> Options Pattern : Configuration ayarlarýný bir sýnýf üzerine alarak okumaya denir. Settings klasorü.
