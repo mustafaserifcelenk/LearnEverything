@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace FreeCourse.Services.Catalog.Services
 {
-    internal class CourseService
+    public class CourseService : ICourseService
     {
         private readonly IMongoCollection<Course> _courseCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
 
-        public CourseService(IMapper mapper, IDatabaseSettings databaseSettings, IMongoCollection<Category> categoryCollection)
+        public CourseService(IMapper mapper, IDatabaseSettings databaseSettings)
         {
             // client : Veritabanı bağlantısı, database: Veritabanından bir database seçme, categoryCollection: Database'den bir tablo seçme
             var client = new MongoClient(databaseSettings.ConnectionString);
@@ -26,7 +26,6 @@ namespace FreeCourse.Services.Catalog.Services
             _categoryCollection = database.GetCollection<Category>(databaseSettings.CategoryCollectionName);
 
             _mapper = mapper;
-            _categoryCollection = categoryCollection;
         }
 
         public async Task<Response<List<CourseDto>>> GetAllAsync()

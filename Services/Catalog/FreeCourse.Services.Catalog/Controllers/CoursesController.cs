@@ -9,15 +9,16 @@ namespace FreeCourse.Services.Catalog.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    internal class CoursesController : CustomBaseController
+    public class CoursesController : CustomBaseController
     {
         private readonly ICourseService _courseService;
 
-        internal CoursesController(ICourseService courseService)
+        public CoursesController(ICourseService courseService)
         {
             _courseService = courseService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var response = await _courseService.GetAllAsync();
@@ -25,12 +26,13 @@ namespace FreeCourse.Services.Catalog.Controllers
         }
 
         [HttpGet("{id}")] // Bu olmazsa: ../courses?id=x, bununla: ../courses/x
-        public async Task<IActionResult> GetAllById(string Id)
+        public async Task<IActionResult> GetById(string id)
         {
-            var response = await _courseService.GetAllByUserIdAsync(Id);
+            var response = await _courseService.GetByIdAsync(id);
             return CreateActionResultInstance(response);
         }
 
+        [HttpGet]
         // ../api/courses/getallbyuserid/4
         [Route("/api/[controller]/GetAllByUserId/{userId}")]
         public async Task<IActionResult> GetAllByUserId(string userId)
@@ -54,9 +56,9 @@ namespace FreeCourse.Services.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string Id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var response = await _courseService.DeleteAsync(Id);
+            var response = await _courseService.DeleteAsync(id);
             return CreateActionResultInstance(response);
         }
     }

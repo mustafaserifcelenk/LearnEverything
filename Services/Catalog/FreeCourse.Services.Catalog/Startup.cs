@@ -28,10 +28,6 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddAutoMapper(typeof(Startup));
-            services.AddControllers();
-
             #region OptionsPattern
             //AppSettings.json'ý okuyup class'a aktarma: Options Pattern.
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
@@ -44,6 +40,11 @@ namespace FreeCourse.Services.Catalog
 
             // Böylece IDatabaseSettings geçtiðimizde GetSection ile okunan deðerler sýnýf olarak elimize geçecek
             #endregion
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICourseService, CourseService>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddControllers();
+
 
             services.AddSwaggerGen(c =>
             {
