@@ -1,8 +1,10 @@
 using FreeCourse.Services.Catalog.Services;
 using FreeCourse.Services.Catalog.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -43,13 +45,29 @@ namespace FreeCourse.Services.Catalog
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllers();
+            services.AddControllers(opt =>
+            {
+                opt.Filters.Add(new AuthorizeFilter()); 
+            });
 
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.Catalog", Version = "v1" });
             });
+
+            #region JWT
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                //token daðýtmakla görevli yapý
+                // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrca
+                options.Authority = Configuration["IdentityServerUrl"];
+                // Bu service'e eriþebilmek için hangi aud'e ihtiyaç var, eðer kimlik bazlý kontrolde olsaydý onu da scope ile yapacaktýk
+                options.Audience = "resource_catalog";
+                // Https kontrolü devre dýþý býrakma
+                options.RequireHttpsMetadata = false;
+            });
+                #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +81,8 @@ namespace FreeCourse.Services.Catalog
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

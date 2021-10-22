@@ -7,3 +7,5 @@
 -> AppSettings.json : Burada connection string olarak default mongo db'nin stringini yazýyoruz ancak dockerize edildiðinde sunucu ortamý baz alýndýðýndan orada env türünden bir deðiþkene ihtiyaç duyacaðýz. Bu deðiþken docker compose'daki servisin adýný taþýyacak.
 
 -> Options Pattern : Configuration ayarlarýný bir sýnýf üzerine alarak okumaya denir. Settings klasorü.
+
+-> Startup'da 'services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme' daki Schema kavramý farklý türde kullanýcýlar için farklý tokenlarýn kullanýldýðý bir yapýyý ifade eder. Bizim tek tip kullanýcýmýz olduðundan dolayý default deðeri kullanacaðýz.

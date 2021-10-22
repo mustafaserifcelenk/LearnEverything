@@ -1,1 +1,3 @@
 ﻿Catalog ve PhotoStock API'lerimiz için jwt token yapacağız, üyelik sistemi gerektirmeyen(Client Credentials Grant Type). Client, ClientId ve ClientSecret ile IdentityServer API'ye başvurunca, Identity Server primary key ile imzaladığı token'ı gönderir ve Catalog/Photo bu token'ı endpointe gönderir. O endpoint token kendine geldiğinde bu tokenı identity server'a danışarak doğrulatır.
+
+[Authorize(LocalApi.PolicyName)] 'de PolicyName startup'a eklediğimiz 'services.AddLocalApiAuthentication();' den geliyor. Bu ise scope içinde gelen IdentityServerAccessToken'a karşılık geliyor. Bu token'ın içinde de şartnamenin beklediği IdentityServerApi scope'u var.
