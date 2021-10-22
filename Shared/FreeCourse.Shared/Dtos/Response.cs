@@ -23,6 +23,11 @@ namespace FreeCourse.Shared.Dtos
             return new Response<T> { Data = data, StatusCode = statusCode, IsSuccessful = true };    // propları burada setlediğimizden setlerini private verdik, dışardan set edilmelerinin önüne geçtik
         }
 
+        public static object Fail()
+        {
+            throw new NotImplementedException();
+        }
+
         public static Response<T> Success(int statusCode)
         {
             return new Response<T> { Data = default(T), StatusCode = statusCode, IsSuccessful = true };
