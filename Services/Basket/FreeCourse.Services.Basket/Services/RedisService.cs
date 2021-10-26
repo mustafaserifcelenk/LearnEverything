@@ -1,0 +1,21 @@
+﻿using StackExchange.Redis;
+
+namespace FreeCourse.Services.Basket.Services
+{
+    public class RedisService
+    {
+        private readonly string _host; 
+        private readonly string _port;
+        private ConnectionMultiplexer _connectionMultiplexer;
+
+        public RedisService(string port, string host)
+        {
+            _port = port;
+            _host = host;
+        }
+
+        public void Connect() => _connectionMultiplexer = ConnectionMultiplexer.Connect($"{_host}:{_port}");
+
+        public IDatabase GetDb(int db = 1) => _connectionMultiplexer.GetDatabase(db);
+    }
+}
