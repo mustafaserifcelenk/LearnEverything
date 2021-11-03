@@ -1,9 +1,12 @@
 using FreeCourse.Services.Basket.Services;
 using FreeCourse.Services.Basket.Settings;
 using FreeCourse.Shared.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +32,22 @@ namespace FreeCourse.Services.Basket
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region JWT
+
+            // Burada diðer microservislerden farklý olarak bir kullanýcýya ihtiyaç duyacaðýmýzdan bu policy'i ekliyoruz. Daha sonra AddControllers'a options'ý ekliyoruz.   
+            var requireAuthorizePolicy =  new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                //token daðýtmakla görevli yapý
+                // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrca
+                options.Authority = Configuration["IdentityServerUrl"];
+                // Bu service'e eriþebilmek için hangi aud'e ihtiyaç var, eðer kimlik bazlý kontrolde olsaydý onu da scope ile yapacaktýk
+                options.Audience = "resource_catalog";
+                // Https kontrolü devre dýþý býrakma
+                options.RequireHttpsMetadata = false;
+            });
+            #endregion
             services.AddHttpContextAccessor();
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<IBasketService, BasketService>();
@@ -40,7 +59,10 @@ namespace FreeCourse.Services.Basket
                 redis.Connect();
                 return redis;
             });
-            services.AddControllers();
+            services.AddControllers(opt =>
+            {
+                opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.Basket", Version = "v1" });
@@ -58,6 +80,8 @@ namespace FreeCourse.Services.Basket
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

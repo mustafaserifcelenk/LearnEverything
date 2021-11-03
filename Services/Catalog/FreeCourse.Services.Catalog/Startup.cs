@@ -60,7 +60,7 @@ namespace FreeCourse.Services.Catalog
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 //token daðýtmakla görevli yapý
-                // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrca
+                // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrcak
                 options.Authority = Configuration["IdentityServerUrl"];
                 // Bu service'e eriþebilmek için hangi aud'e ihtiyaç var, eðer kimlik bazlý kontrolde olsaydý onu da scope ile yapacaktýk
                 options.Audience = "resource_catalog";
