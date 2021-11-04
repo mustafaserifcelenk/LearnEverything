@@ -8,7 +8,7 @@ namespace FreeCourse.Services.Basket.Services
         private readonly string _port;
         private ConnectionMultiplexer _connectionMultiplexer;
 
-        public RedisService(string port, string host)
+        public RedisService(string host, string port)
         {
             _port = port;
             _host = host;

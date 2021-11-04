@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,9 @@ namespace FreeCourse.Services.Basket
 
             // Burada diðer microservislerden farklý olarak bir kullanýcýya ihtiyaç duyacaðýmýzdan bu policy'i ekliyoruz. Daha sonra AddControllers'a options'ý ekliyoruz.   
             var requireAuthorizePolicy =  new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            // sub claiminin ismini nameidentifier olarak deðiþtiriyordu alýrken, onu engelledik. Sub, sub olarak kalacak.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
