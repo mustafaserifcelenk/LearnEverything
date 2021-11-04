@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05E74E44-9420-4442-B3E0-C120B63B72E2}"
 	ProjectSection(SolutionItems) = preProject
 		Ports.txt = Ports.txt
+		Şifreler.txt = Şifreler.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0B4F8FD5-CA38-410F-849C-2241C0639564}"
