@@ -43,7 +43,7 @@ namespace FreeCourse.Services.Basket
                 // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrca
                 options.Authority = Configuration["IdentityServerUrl"];
                 // Bu service'e eriþebilmek için hangi aud'e ihtiyaç var, eðer kimlik bazlý kontrolde olsaydý onu da scope ile yapacaktýk
-                options.Audience = "resource_catalog";
+                options.Audience = "resource_basket";
                 // Https kontrolü devre dýþý býrakma
                 options.RequireHttpsMetadata = false;
             });
