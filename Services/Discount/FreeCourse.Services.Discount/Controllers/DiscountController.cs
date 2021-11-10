@@ -35,7 +35,7 @@ namespace FreeCourse.Services.Discount.Controllers
         }
 
         [HttpGet]
-        [Route("/api/[conrtroller]/[action]/{code}")]
+        [Route("/api/[controller]/[action]/{code}")]
         public async Task<IActionResult> GetByUserAndCode(string code)
         {
             var userId = _sharedIdentityService.GetUserId;
