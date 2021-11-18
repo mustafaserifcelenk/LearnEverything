@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Domain hangi ORM'le çalıştığını bilmemeli.
 namespace FreeCourse.Services.Order.Domain.OrderAggregate
 {
     // EfCore'un DDD için özellikleri;
     // 1) field üzerinden bağlı sınıfların verilerini alabildik
     // 2) ShadowProperty yardımıyla ilişki için gerekli id'leri belirtmemize gerek kalmadı
     // 3) OwnedType ile kendine ait bir id'si olmayan tipleri ayrı bir sınıfta tanımlayabildik
-    internal class Order : Entity, IAggregateRoot
+    public class Order : Entity, IAggregateRoot
     {
         // Address propertisi default olarak Order tablosunun içinde sütunlar olarak bulunacak(owned) ancak ayrı bir tablo olarak tutulmasını istiyorsak onu da yapabiliyoruz.
         // prop : get/reset var 
