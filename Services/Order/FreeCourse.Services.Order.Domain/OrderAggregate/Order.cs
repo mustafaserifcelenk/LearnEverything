@@ -27,6 +27,10 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
         // Burada orderItemları dış dünyaya açıyoruz, okuma işlemini buradan yapabiliyorlar. '_orderItems' ı Ef Core dolduruyor.
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
+        public Order()
+        {
+                
+        }
         public Order(string buyerId, Address address)
         {
             _orderItems = new List<OrderItem>();
