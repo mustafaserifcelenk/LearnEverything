@@ -6,3 +6,5 @@ Services
 -> orderAPI : 5015
 
 -> identityserver : 5001
+
+-> portrainer : 9443
