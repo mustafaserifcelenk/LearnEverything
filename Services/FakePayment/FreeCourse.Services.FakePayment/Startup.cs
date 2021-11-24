@@ -1,13 +1,9 @@
-using FreeCourse.Services.Order.Infrastructure;
-using FreeCourse.Shared.Services;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +15,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FreeCourse.Services.Order.API
+namespace FreeCourse.Services.FakePayment
 {
     public class Startup
     {
@@ -33,36 +29,32 @@ namespace FreeCourse.Services.Order.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region JWT
 
+            // Burada diðer microservislerden farklý olarak bir kullanýcýya ihtiyaç duyacaðýmýzdan bu policy'i ekliyoruz. Daha sonra AddControllers'a options'ý ekliyoruz.   
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+
+            // sub claiminin ismini nameidentifier olarak deðiþtiriyordu alýrken, onu engelledik. Sub, sub olarak kalacak.
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
-                options.Authority = Configuration["IdentityServerURL"];
-                options.Audience = "resource_order";
+                //token daðýtmakla görevli yapý
+                // Bu uygulamaya private key ile imzalanan bir token geldiðinde uygulama IdentityServerUrl'i kullanarak endpointten public key alcak ve karþýlaþtýrca
+                options.Authority = Configuration["IdentityServerUrl"];
+                // Bu service'e eriþebilmek için hangi aud'e ihtiyaç var, eðer kimlik bazlý kontrolde olsaydý onu da scope ile yapacaktýk
+                options.Audience = "resource_payment";
+                // Https kontrolü devre dýþý býrakma
                 options.RequireHttpsMetadata = false;
             });
-
-            services.AddDbContext<OrderDbContext>(opt =>
-            {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), configure =>
-                {
-                    configure.MigrationsAssembly("FreeCourse.Services.Order.Infrastructure");
-                });
-            });
-
-            services.AddHttpContextAccessor();
-            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
-
-            services.AddMediatR(typeof(Application.Handlers.CreateOrderCommandHandler).Assembly);
-
+            #endregion
             services.AddControllers(opt =>
             {
                 opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.Order.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.FakePayment", Version = "v1" });
             });
         }
 
@@ -73,12 +65,13 @@ namespace FreeCourse.Services.Order.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FreeCourse.Services.Order.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FreeCourse.Services.FakePayment v1"));
             }
 
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
