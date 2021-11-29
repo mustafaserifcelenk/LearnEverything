@@ -18,6 +18,7 @@ namespace FreeCourse.Web.Controllers
             _logger = logger;
         }
 
+        [HttpGet("Home/Index")]
         public IActionResult Index()
         {
             return View();
