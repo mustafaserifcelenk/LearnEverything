@@ -9,6 +9,7 @@
           "Port": 5011
         }
       ],
+      // Biz isteði tek bir yerden(5000 portu) atýyoruz, mesela catalog/controllerismi geldi, bu normalde çalýþmaz çünkü localhost:5000\catalog... diye bir adres yok. Ýþte gateway'in yaptýðý þey senin catalog yazdýðýný algýlayýp, seni catalog portuna yönlendirmek.
       "UpstreamPathTemplate": "/services/catalog/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",

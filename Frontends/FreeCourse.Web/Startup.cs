@@ -31,6 +31,13 @@ namespace FreeCourse.Web
             services.AddHttpContextAccessor();
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpClient<IIdentityService, IdentityService>();
+
+            // Sistem bu: Bir servis çaðrýlacaksa, istekyapýlcaðý için httpclient üzerinden service ve interface tanýmlamalarý yapýlýr ve base uri opt olarak eklenir
+            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            });
+
             // Message handler sayesinde token kontrolü kendisi her servise istek yapýldýðýnda yapýyor.
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
