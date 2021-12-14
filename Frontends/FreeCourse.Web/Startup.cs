@@ -1,3 +1,4 @@
+using FreeCourse.Shared.Services;
 using FreeCourse.Web.Handler;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
@@ -32,6 +33,7 @@ namespace FreeCourse.Web
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpClient<IIdentityService, IdentityService>();
 
+            services.AddScoped<ISharedIdentityService,SharedIdentityService>();
             // Sistem bu: Bir servis çaðrýlacaksa, istekyapýlcaðý için httpclient üzerinden service ve interface tanýmlamalarý yapýlýr ve base uri opt olarak eklenir
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
