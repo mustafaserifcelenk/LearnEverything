@@ -145,6 +145,7 @@ namespace FreeCourse.Web.Services
                 throw userInfo.Exception;
             }
 
+            // Layoutta name dediğimiz zaman buradan çekiyor o alanı
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
