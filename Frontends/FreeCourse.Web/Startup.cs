@@ -36,10 +36,11 @@ namespace FreeCourse.Web
 
             services.AddScoped<ISharedIdentityService,SharedIdentityService>();
             // Sistem bu: Bir servis çaðrýlacaksa, istekyapýlcaðý için httpclient üzerinden service ve interface tanýmlamalarý yapýlýr ve base uri opt olarak eklenir
+            services.AddScoped<ClientCredentialTokenHandler>();
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
-            });
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             // Message handler sayesinde token kontrolü kendisi her servise istek yapýldýðýnda yapýyor.
             services.AddHttpClient<IUserService, UserService>(opt =>
