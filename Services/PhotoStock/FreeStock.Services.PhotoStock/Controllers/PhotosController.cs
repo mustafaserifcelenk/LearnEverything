@@ -25,7 +25,7 @@ namespace FreeStock.Services.PhotoStock.Controllers
                     await photo.CopyToAsync(fs, cancellationToken); 
                 }
                 // http://photostock.api.com/photos/x.jpg
-                var returnPath = "photos/" + photo.FileName;
+                var returnPath = photo.FileName;
 
                 PhotoDto photoDto = new PhotoDto()
                 {
