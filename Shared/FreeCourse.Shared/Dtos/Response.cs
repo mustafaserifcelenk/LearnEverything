@@ -7,13 +7,13 @@ namespace FreeCourse.Shared.Dtos
 {
     public class Response<T>                                                         // where ile kısıtlamıyoruz, int de olabilir, struct'da olabilir, class'da olabilir
     {   
-        public T Data { get; private set; }                                             // Başarılı olunduğunda gidecek data
+        public T Data { get; set; }                                             // Başarılı olunduğunda gidecek data
 
         [JsonIgnore]                                                                    // Uygulama içinde kullanılacak, zaten apilerin dönüşlerinde her daim bir status kodu oluyor                                                                                 o yüzden bunu göndermeye gerek yok
-        public int StatusCode { get; private set; }
+        public int StatusCode { get; set; }
 
         [JsonIgnore]
-        public bool IsSuccessful { get; private set; }
+        public bool IsSuccessful { get; set; }
         public List<string> Errors { get; set; }
 
         // Static Factory Methods :  statik olarak nesne dönülüyorsa

@@ -28,8 +28,10 @@ namespace FreeCourse.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddHttpContextAccessor();
+            services.AddAccessTokenManagement();
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddHttpClient<IIdentityService, IdentityService>();
@@ -42,12 +44,11 @@ namespace FreeCourse.Web
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
-            // Message handler sayesinde token kontrolü kendisi her servise istek yapýldýðýnda yapýyor.
+            
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-            services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
             {
@@ -87,3 +88,7 @@ namespace FreeCourse.Web
         }
     }
 }
+//// Message handler sayesinde token kontrolü kendisi her servise istek yapýldýðýnda yapýyor.
+//AddhttpCLient IUSerservice
+//    // Sistem bu: Bir servis çaðrýlacaksa, istekyapýlcaðý için httpclient üzerinden service ve interface tanýmlamalarý yapýlýr ve base uri opt olarak eklenir
+//            services.AddScoped<ClientCredentialTokenHandler>();
