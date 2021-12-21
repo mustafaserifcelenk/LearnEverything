@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FreeCourse.Web.Models.Catalogs
 {
@@ -19,5 +20,7 @@ namespace FreeCourse.Web.Models.Catalogs
         [Display(Name = "Kurs Kategori")]
         [Required]
         public string CategoryId { get; set; }
+        [Display(Name="Kurs Resmi")]
+        public IFormFile PhotoFormFile { get; set; }
     }
 }

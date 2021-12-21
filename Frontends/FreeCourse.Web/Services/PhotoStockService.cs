@@ -1,4 +1,5 @@
-﻿using FreeCourse.Web.Models.PhotoStock;
+﻿using FreeCourse.Shared.Dtos;
+using FreeCourse.Web.Models.PhotoStock;
 using FreeCourse.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -31,7 +32,7 @@ namespace FreeCourse.Web.Services
                 return null;
             }
             var randomFileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(photo.FileName)}";
-            
+
             using var ms = new MemoryStream();
 
             // fotoğrafı bir bit dizini olarak memorystream de tutuyoruz
@@ -47,7 +48,9 @@ namespace FreeCourse.Web.Services
             {
                 return null;
             }
-            return await response.Content.ReadFromJsonAsync<PhotoViewModel>();
+
+            var responseSuccess = await response.Content.ReadFromJsonAsync<Response<PhotoViewModel>>();
+            return responseSuccess.Data;
         }
     }
 }
