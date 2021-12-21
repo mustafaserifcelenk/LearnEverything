@@ -1,4 +1,5 @@
 using FreeCourse.Shared.Services;
+using FreeCourse.Web.Extensions;
 using FreeCourse.Web.Handler;
 using FreeCourse.Web.Helpers;
 using FreeCourse.Web.Models;
@@ -34,29 +35,14 @@ namespace FreeCourse.Web
             services.AddHttpContextAccessor();
             services.AddAccessTokenManagement();
             services.AddSingleton<PhotoHelper>();
-            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
-            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
-            services.AddHttpClient<IIdentityService, IdentityService>();
 
             services.AddScoped<ISharedIdentityService,SharedIdentityService>();
             // Sistem bu: Bir servis çaðrýlacaksa, istekyapýlcaðý için httpclient üzerinden service ve interface tanýmlamalarý yapýlýr ve base uri opt olarak eklenir
             services.AddScoped<ClientCredentialTokenHandler>();
-            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
-            {
-                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.PhotoStock.Path}");
-            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-
-            services.AddHttpClient<IUserService, UserService>(opt =>
-            {
-                opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
+
+            services.AddHttpClientServices(Configuration);
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
             {
                 opts.LoginPath = "/Auth/SignIn";
