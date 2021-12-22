@@ -52,7 +52,7 @@
                         </tr>
                     </table>
 
-                    @*<form asp-controller="Basket" asp-action="ApplyDiscount">
+                    <form asp-controller="Basket" asp-action="ApplyDiscount">
                         @if (Model.HasDiscount)
                         {
                             <div class="alert alert-success">
@@ -75,8 +75,8 @@
                         {
                             <div class="text-danger">@TempData["discountError"]</div>
                         }
-                    </form>*@
-                    @*<a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Ödeme bilgileri</a>*@
+                    </form>
+                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Ödeme bilgileri</a>
                     <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Kursları incelemeye devam et</a>
                 }
                 else
