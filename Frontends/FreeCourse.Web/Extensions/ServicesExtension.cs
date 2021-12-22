@@ -1,5 +1,4 @@
-﻿using FreeCourse.Services.Discount.Services;
-using FreeCourse.Web.Handler;
+﻿using FreeCourse.Web.Handler;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
 using FreeCourse.Web.Services.Interfaces;
@@ -39,10 +38,10 @@ namespace FreeCourse.Web.Extensions
 
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
-            //services.AddHttpClient<IDiscountService, DiscountService>(opt =>
-            //{
-            //    opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Discount.Path}");
-            //}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            services.AddHttpClient<IDiscountService, DiscountService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Discount.Path}");
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         }
     }
