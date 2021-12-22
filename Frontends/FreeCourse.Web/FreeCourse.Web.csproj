@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="IdentityModel.AspNetCore" Version="4.1.2" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.14.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
@@ -12,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\IdentityServer\FreeCourse.IdentityServer\FreeCourse.IdentityServer.csproj" />
+    <ProjectReference Include="..\..\Services\Discount\FreeCourse.Services.Discount\FreeCourse.Services.Discount.csproj" />
     <ProjectReference Include="..\..\Shared\FreeCourse.Shared\FreeCourse.Shared.csproj" />
   </ItemGroup>
 
