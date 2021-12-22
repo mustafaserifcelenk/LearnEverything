@@ -10,8 +10,9 @@ namespace FreeCourse.Services.FakePayment.Controllers
     public class FakePaymentController : CustomBaseController
     {
         [HttpPost]
-        public IActionResult ReceivePayment()
+        public IActionResult ReceivePayment(PaymnentDto paymnentDto)
         {
+            // PaymentDto ile ödeme işlemi gerçekleştir
             return CreateActionResultInstance(Response<NoContent>.Success(200));
         }
     }

@@ -14,6 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Services.Catalog
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{05E74E44-9420-4442-B3E0-C120B63B72E2}"
 	ProjectSection(SolutionItems) = preProject
+		MesajKuyrukSistemi.txt = MesajKuyrukSistemi.txt
 		Ports.txt = Ports.txt
 		Şifreler.txt = Şifreler.txt
 	EndProjectSection
@@ -56,11 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Services.FakePay
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{F9362497-3517-4D3A-B4D0-1A17432D11F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Gateway", "FreeCourse.Gateway\FreeCourse.Gateway.csproj", "{A047DCA1-AAB9-449F-B8D3-08E7EC9335E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Gateway", "FreeCourse.Gateway\FreeCourse.Gateway.csproj", "{A047DCA1-AAB9-449F-B8D3-08E7EC9335E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{FA726456-2914-42E0-A972-D238AD42D774}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Web", "Frontends\FreeCourse.Web\FreeCourse.Web.csproj", "{2323D693-E44C-44F4-BFB1-0AB1A1EEE299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.Web", "Frontends\FreeCourse.Web\FreeCourse.Web.csproj", "{2323D693-E44C-44F4-BFB1-0AB1A1EEE299}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
