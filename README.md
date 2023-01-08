@@ -6,43 +6,57 @@ This is a microservice project that clone of Udemy. Here is structure of project
 ## Project Contents
 
 Services and databases are launched via Docker and comminicate via IdentityServer Token tool.
+
 <ul>
 <li>
-### Asp.Net Web
+Asp.Net Web
 </li>
 Comunicate with services and show UI to users.
 
+<li>
 Gateway Service
+</li>
 Direct client requests to related services via Ocelot.
 
+<li>
 IdentityServer
+  </li>
 Authentiacation process is running in it via SQL server and EF Core.
 
+<li>
 Basket Service
+  </li>
 Basket functions via RabbitMQ and Redis.
 
+<li>
 Catalog Service
+  </li>
 Catalog functions via RabbitMQ and MongoDB.
 
+<li>
 Discount Service
+  </li>
 Discount functions via Dapper and Npgsql.
 
+<li>
 FakePayment Service
+  </li>
 Payment functions via RabbitMQ.
 
+<li>
 Order Service
-Domain driven design (DDD) ile yazılmıştır. Ödemesi başarılı olan işlemleri sipariş olarak eklemiştik. Burada CommandConsumer veya EventConsumer lar aracılığı ile işlemleri yapıyoruz. RabbitMQ kulanılmıştır. Burada EntityFrameworkCore ve SqlServer kullanılmıştır. Ayrıca bu db işlemleri için CQRS Pattern, MediatR Kütüphanesi kullanılmıştır.
+  </li>
+Order functions via DDD, CQRS pattern and MediatR.
 
+<li>
 PhotoStock Service
-Kursa eklenen resim işlemlerini yürüten projedir. Bu proje özelinde herhangi bir sunucu veya veritabanı işlemi yapılmamıştır. Eklenen resimler local olarak tutulmuştur.
+  </li>
+Photo upload functions to local.
 
-Course.Shared
-Tüm projenin ortak işlemlerinin yürütülmesinden sorumludur.
-
-
-Message Broker
-Mesaj kuyruk sistemi olarak RabbitMQ kullanıyor.
-RabbitMQ ile haberleşmek için MassTransit kütüphanesini kullanıyor.
-RabbitMQ (MassTransit Library)
+<li>
+Shared
+  </li>
+Shared functions.
+  
 </ul>
 
