@@ -1,5 +1,5 @@
 # LearnEverything
-This is a microservice project that clone of Udemy. Here is structure of project:
+This is a microservice project that is clone of Udemy. Here is structure of project:
 
 ![image](https://user-images.githubusercontent.com/72551126/211204842-23cd0b0f-48d3-46d9-b93c-4a632735f78e.png)
 
