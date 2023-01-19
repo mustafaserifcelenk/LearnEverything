@@ -1,1 +1,1 @@
-Mesaj kuyruk sistemini kullanma þeklimiz ödemeyi aldýktan sonra orderýn oluþturulma talimatý rabbite gidiyor. Eðer o anda orderda sorun varsa böylece ödemeyi almamýza raðmen sipariþin oluþmamasý hatasýyla karþýlaþmýyoruz.
+Mesaj kuyruk sistemini kullanma þeklimiz ödemeyi aldýktan sonra orderýn oluþturulma talimatý rabbite gidiyor. Eðer o anda orderda sorun varsa böylece ödemeyi almamýza raðmen sipariþin oluþmamasý hatasýyla karþýlaþmýyoruz. RabbitMQ'ya mesaj gönderme iþlemini fakepayment içerisinden gerçekleþtiriyoruz.
