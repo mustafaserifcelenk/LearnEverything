@@ -16,16 +16,16 @@ namespace FreeCourse.Services.Catalog.Services
         private readonly IMongoCollection<Course> _courseCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
         private readonly IMapper _mapper;
+        private readonly MassTransit.IPublishEndpoint _publishEndpoint;
 
-        public CourseService(IMapper mapper, IDatabaseSettings databaseSettings)
+        public CourseService(IMapper mapper, IDatabaseSettings databaseSettings, MassTransit.IPublishEndpoint publishEndpoint)
         {
-            // client : Veritabanı bağlantısı, database: Veritabanından bir database seçme, categoryCollection: Database'den bir tablo seçme
             var client = new MongoClient(databaseSettings.ConnectionString);
             var database = client.GetDatabase(databaseSettings.DatabaseName);
             _courseCollection = database.GetCollection<Course>(databaseSettings.CourseCollectionName);
             _categoryCollection = database.GetCollection<Category>(databaseSettings.CategoryCollectionName);
-
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<Response<List<CourseDto>>> GetAllAsync()
@@ -88,7 +88,7 @@ namespace FreeCourse.Services.Catalog.Services
         {
             var updateCourse = _mapper.Map<Course>(courseUpdateDto);
             var result = await _courseCollection.FindOneAndReplaceAsync(x => x.Id == courseUpdateDto.Id, updateCourse);
-            if (result==null)
+            if (result == null)
             {
                 return Response<NoContent>.Fail("Course not found.", 404);
             }
@@ -98,7 +98,7 @@ namespace FreeCourse.Services.Catalog.Services
         public async Task<Response<NoContent>> DeleteAsync(string id)
         {
             var result = await _courseCollection.DeleteOneAsync(x => x.Id == id);
-            if (result.DeletedCount>0)
+            if (result.DeletedCount > 0)
             {
                 return Response<NoContent>.Success(204);
             }
