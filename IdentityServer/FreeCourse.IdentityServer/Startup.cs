@@ -60,6 +60,7 @@ namespace FreeCourse.IdentityServer
             #region ResourceOwnerCredential
             //ResourceOwnerCredential tipinde istek yapıldığında bu sınıf çağrılacak
             builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
+            builder.AddExtensionGrantValidator<TokenExchangeExtensionGrantValidator>();
             #endregion
 
             // not recommended for production - you need to store your key material somewhere secure

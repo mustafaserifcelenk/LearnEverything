@@ -9,13 +9,20 @@
           "Port": 5011
         }
       ],
-      // Biz isteði tek bir yerden(5000 portu) atýyoruz, mesela catalog/controllerismi geldi, bu normalde çalýþmaz çünkü localhost:5000\catalog... diye bir adres yok. Ýþte gateway'in yaptýðý þey senin catalog yazdýðýný algýlayýp, seni catalog portuna yönlendirmek.
+      // Biz isteï¿½i tek bir yerden(5000 portu) atï¿½yoruz, mesela catalog/controllerismi geldi, bu normalde ï¿½alï¿½ï¿½maz ï¿½ï¿½nkï¿½ localhost:5000\catalog... diye bir adres yok. ï¿½ï¿½te gateway'in yaptï¿½ï¿½ï¿½ ï¿½ey senin catalog yazdï¿½ï¿½ï¿½nï¿½ algï¿½layï¿½p, seni catalog portuna yï¿½nlendirmek.
       "UpstreamPathTemplate": "/services/catalog/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": ["catalog_fullpermission"]
+        "AllowedScopes": [
+          "catalog_fullpermission"
+        ]
       }
     },
     {
@@ -28,11 +35,18 @@
         }
       ],
       "UpstreamPathTemplate": "/services/photostock/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "photo_stock_fullpermission" ]
+        "AllowedScopes": [
+          "photo_stock_fullpermission"
+        ]
       }
     },
     {
@@ -45,11 +59,18 @@
         }
       ],
       "UpstreamPathTemplate": "/services/basket/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "basket_fullpermission" ]
+        "AllowedScopes": [
+          "basket_fullpermission"
+        ]
       }
     },
     {
@@ -62,11 +83,16 @@
         }
       ],
       "UpstreamPathTemplate": "/services/discount/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": ["TokenExchangeDelegateHandler"],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "discount_fullpermission" ]
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }
     },
     {
@@ -79,11 +105,18 @@
         }
       ],
       "UpstreamPathTemplate": "/services/order/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "order_fullpermission" ]
+        "AllowedScopes": [
+          "order_fullpermission"
+        ]
       }
     },
     {
@@ -96,11 +129,16 @@
         }
       ],
       "UpstreamPathTemplate": "/services/fakepayment/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "payment_fullpermission" ]
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }
     }
   ],
@@ -109,4 +147,4 @@
   }
 }
 
-// http://localhost:5000/services/catalog/ -> 'tan sonra everything geliyor, orada yazýlý olanlar downstream template'in everythingine, o servisin portu da eklenerek yazýlýyor. Böylece routelama iþlemi otomatik yapýlýyor -> http://localhost:5011/api/courses/savecourse
+// http://localhost:5000/services/catalog/ -> 'tan sonra everything geliyor, orada yazï¿½lï¿½ olanlar downstream template'in everythingine, o servisin portu da eklenerek yazï¿½lï¿½yor. Bï¿½ylece routelama iï¿½lemi otomatik yapï¿½lï¿½yor -> http://localhost:5011/api/courses/savecourse
