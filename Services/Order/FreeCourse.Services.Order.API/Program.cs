@@ -1,5 +1,8 @@
+using FreeCourse.Services.Order.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +16,16 @@ namespace FreeCourse.Services.Order.API
     {
         public static void Main(string[] args)
         {
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+                var orderDbContext = serviceProvider.GetRequiredService<OrderDbContext>();
+                orderDbContext.Database.Migrate();
+
+            }
+            host.Run();
             CreateHostBuilder(args).Build().Run();
         }
 
